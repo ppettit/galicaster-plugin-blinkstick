@@ -20,7 +20,6 @@ DEFAULT_REC_COLOR = '#ff0000'
 DEFAULT_PAUSE_COLOR = '#ff0000'
 DEFAULT_PAUSE_DELAY = 1000
 DEFAULT_UPCOMING_COLOR = '#ffff00'
-# DEFAULT_STARTING_TIME = 60
 
 LED_COUNT = 8
 
@@ -29,13 +28,14 @@ UPCOMING_STATUS = Status('upcoming', 'Upcoming')
 
 
 def init():
-    rec_color = conf.get('blink', 'rec_color') or DEFAULT_REC_COLOR
+    rec_color = conf.get('blinkstick', 'rec_color') or DEFAULT_REC_COLOR
     logger.debug('rec_color set to {}'.format(rec_color))
-    pause_color = conf.get('blink', 'pause_color') or DEFAULT_PAUSE_COLOR
+    pause_color = conf.get('blinkstick', 'pause_color') or DEFAULT_PAUSE_COLOR
     logger.debug('pause_color set to {}'.format(pause_color))
-    pause_delay = conf.get_int('blink', 'pause_delay') or DEFAULT_PAUSE_DELAY
+    pause_delay = conf.get_int('blinkstick',
+                               'pause_delay') or DEFAULT_PAUSE_DELAY
     logger.debug('pause_delay set to {}'.format(pause_delay))
-    upcoming_color = conf.get('blink',
+    upcoming_color = conf.get('blinkstick',
                               'upcoming_color') or DEFAULT_UPCOMING_COLOR
     logger.debug('upcoming_color set to {}'.format(upcoming_color))
 
