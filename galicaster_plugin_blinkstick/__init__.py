@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-from . import blinkstick
+from . import blinkstick_plugin
 from distutils.version import LooseVersion
 
 try:
@@ -11,6 +11,6 @@ except:
 
 def init():
     if LooseVersion(galicaster.__version__) <= LooseVersion("2.0.x"):
-        blinkstick.init()
+        blinkstick_plugin.init()
     else:
         raise Exception("Plugin version mismatch")
