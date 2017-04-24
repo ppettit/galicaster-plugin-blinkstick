@@ -50,6 +50,9 @@ Settings
 |                |         | color is used when a recording is about to start   |                    |
 +----------------+---------+----------------------------------------------------+--------------------+
 
+Source
+------
+Source code is available at https://github.com/ppettit/galicaster-plugin-blinkstick
 
 .. _Galicaster: https://github.com/teltek/Galicaster
 .. _BlinkStick: https://www.blinkstick.com/
