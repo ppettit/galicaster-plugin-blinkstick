@@ -19,9 +19,21 @@ Usage
 
 Install using ``sudo pip2 install`` in this directory. The official
 ``blinkstick`` python module is required, and should be installed automatically
-by pip is needed.
+by pip as needed.
 
-Add the following to your ``conf.ini`` fie:
+You can also instal by copying ``galicaster_plugin_blinkstick`` into the
+Galicaster plugins directory, and then installing the blinkstick module with
+``sudo pip2 install blinkstick``
+
+Either way, you should add a udev rule to make sure ordinary users can access
+it using ``sudo blinkstick --add-udev-rule``. or you can manually achieve the
+same thing with:
+
+::
+
+  echo "SUBSYSTEM==\"usb\", ATTR{idVendor}==\"20a0\", ATTR{idProduct}==\"41e5\", MODE:=\"0666\"" | sudo tee /etc/udev/rules.d/85-blinkstick.rules
+
+Add the following to your ``conf.ini`` file:
 
 ::
 
