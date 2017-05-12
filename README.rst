@@ -17,13 +17,13 @@ can be configured using the settings described below.
 Usage
 -----
 
-Install using ``sudo pip2 install`` in this directory. The official
+Install using ``sudo pip2 install .`` in this directory. The official
 ``blinkstick`` python module is required, and should be installed automatically
 by pip as needed.
 
-You can also instal by copying ``galicaster_plugin_blinkstick`` into the
-Galicaster plugins directory, and then installing the blinkstick module with
-``sudo pip2 install blinkstick``
+You can also install manually by copying ``galicaster_plugin_blinkstick/`` into
+the Galicaster plugins directory, renaming it as ``blinkstick`` and then
+installing the blinkstick module with ``sudo pip2 install blinkstick``.
 
 Either way, you should add a udev rule to make sure ordinary users can access
 it using ``sudo blinkstick --add-udev-rule``. or you can manually achieve the
