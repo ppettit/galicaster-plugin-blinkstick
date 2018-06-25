@@ -10,7 +10,7 @@ except:
 
 
 def init():
-    if LooseVersion(galicaster.__version__) <= LooseVersion("2.0.x"):
+    if LooseVersion(galicaster.__version__) >= LooseVersion("2.0.0"):
         blinkstick_plugin.init()
     else:
         raise Exception("Plugin version mismatch")
