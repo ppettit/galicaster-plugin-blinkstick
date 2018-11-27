@@ -16,7 +16,7 @@ logger = context.get_logger()
 repo = context.get_repository()
 recorder = context.get_recorder()
 
-DEFAULT_PREVIEW_COLOR = '#00ff00'
+DEFAULT_PREVIEW_COLOR = '#000000'
 DEFAULT_REC_COLOR = '#ff0000'
 DEFAULT_PAUSE_COLOR = '#ff0000'
 DEFAULT_PAUSE_DELAY = 1000
