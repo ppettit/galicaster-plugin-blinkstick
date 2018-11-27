@@ -41,7 +41,7 @@ Add the following to your ``conf.ini`` file:
     blinkstick = True
 
     [blinkstick]
-    preview_color = #00ff00
+    preview_color = #000000
     rec_color = #ff0000
     pause_color = #ff0000
     pause_delay = 1000
@@ -54,7 +54,7 @@ Settings
 +----------------+---------+----------------------------------------------------+--------------------+
 | Setting        | Type    | Description                                        | Default            |
 +================+=========+====================================================+====================+
-| preview_color  | string  | Hex string representing preview color              | '#00ff00' (Green)  |
+| preview_color  | string  | Hex string representing preview color              | '#000000' (White)  |
 +----------------+---------+----------------------------------------------------+--------------------+
 | rec_color      | string  | Hex string representing record color               | '#ff0000' (Red)    |
 +----------------+---------+----------------------------------------------------+--------------------+
