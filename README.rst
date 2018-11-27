@@ -41,10 +41,12 @@ Add the following to your ``conf.ini`` file:
     blinkstick = True
 
     [blinkstick]
+    preview_color = #00ff00
     rec_color = #ff0000
     pause_color = #ff0000
     pause_delay = 1000
     upcoming_color = #ffff00
+    error_color = #ffbf00
 
 Settings
 --------
@@ -52,6 +54,8 @@ Settings
 +----------------+---------+----------------------------------------------------+--------------------+
 | Setting        | Type    | Description                                        | Default            |
 +================+=========+====================================================+====================+
+| preview_color  | string  | Hex string representing preview color              | '#00ff00' (Green)  |
++----------------+---------+----------------------------------------------------+--------------------+
 | rec_color      | string  | Hex string representing record color               | '#ff0000' (Red)    |
 +----------------+---------+----------------------------------------------------+--------------------+
 | pause_color    | string  | Hex string representing pause color                | '#ff0000' (Red)    |
@@ -60,6 +64,8 @@ Settings
 +----------------+---------+----------------------------------------------------+--------------------+
 | upcoming_color | string  | Hex string representing upcoming color. This       | '#ffff00' (Yellow) |
 |                |         | color is used when a recording is about to start   |                    |
++----------------+---------+----------------------------------------------------+--------------------+
+| error_color    | string  | Hex string representing error color                | '#ffbf00' (Orange) |
 +----------------+---------+----------------------------------------------------+--------------------+
 
 Source
