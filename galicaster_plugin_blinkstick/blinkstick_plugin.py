@@ -16,10 +16,13 @@ logger = context.get_logger()
 repo = context.get_repository()
 recorder = context.get_recorder()
 
+DEFAULT_PREVIEW_COLOR = '#000000'
 DEFAULT_REC_COLOR = '#ff0000'
 DEFAULT_PAUSE_COLOR = '#ff0000'
 DEFAULT_PAUSE_DELAY = 1000
 DEFAULT_UPCOMING_COLOR = '#ffff00'
+DEFAULT_ERROR_COLOR = '#aa00aa'
+OFF_COLOR = '#000000'
 
 LED_COUNT = 8
 
@@ -28,6 +31,8 @@ UPCOMING_STATUS = Status('upcoming', 'Upcoming')
 
 
 def init():
+    preview_color = conf.get('blinkstick', 'preview_color') or DEFAULT_PREVIEW_COLOR
+    logger.debug('preview_color set to {}'.format(preview_color))
     rec_color = conf.get('blinkstick', 'rec_color') or DEFAULT_REC_COLOR
     logger.debug('rec_color set to {}'.format(rec_color))
     pause_color = conf.get('blinkstick', 'pause_color') or DEFAULT_PAUSE_COLOR
@@ -38,25 +43,32 @@ def init():
     upcoming_color = conf.get('blinkstick',
                               'upcoming_color') or DEFAULT_UPCOMING_COLOR
     logger.debug('upcoming_color set to {}'.format(upcoming_color))
+    error_color = conf.get('blinkstick', 'error_color') or DEFAULT_ERROR_COLOR
+    logger.debug('error_color set to {}'.format(error_color))
 
-    BlinkstickPlugin(rec_color=rec_color,
+    BlinkstickPlugin(preview_color=preview_color,
+                     rec_color=rec_color,
                      pause_color=pause_color,
                      pause_delay=pause_delay,
                      upcoming_color=upcoming_color,
-                     upcoming_time=TIME_UPCOMING)
+                     upcoming_time=TIME_UPCOMING,
+                     error_color=error_color,
+                     off_color=OFF_COLOR)
 
 
 class BlinkstickPlugin():
-    def __init__(self, rec_color, pause_color, pause_delay,
-                 upcoming_color, upcoming_time):
+    def __init__(self, preview_color, rec_color, pause_color, pause_delay,
+                 upcoming_color, upcoming_time, error_color, off_color):
+        self.preview_color = preview_color
         self.rec_color = rec_color
         self.pause_color = pause_color
         self.pause_delay = pause_delay
         self.upcoming_color = upcoming_color
         self.upcoming_time = upcoming_time
+        self.error_color = error_color
+        self.off_color = off_color
 
         self.bs = None
-        self.off_color = '#000000'
         self.error = False
 
         # used to store tag of flash timer so it can be cleared
@@ -65,11 +77,12 @@ class BlinkstickPlugin():
         # tried reading current color from device but seemed to
         # make things more unstable, so this can not be relied upon
         # and is only used to keep track of flashing
-        self.led = self.off_color
+        self.led = self.preview_color
 
         dispatcher.connect('timer-short', self._handle_timer)
         dispatcher.connect('recorder-status', self._handle_status_change)
         dispatcher.connect('recorder-upcoming-event', self._handle_upcoming)
+        dispatcher.connect('quit', self._handle_quit)
 
         # make sure led is off when plugin starts
         self._handle_timer(self)
@@ -100,6 +113,9 @@ class BlinkstickPlugin():
         if not self.flash:
             self.set_status(status)
 
+    def _handle_quit(self, sender):
+        self.set_color(self.off_color)
+
     def set_status(self, status):
         # start flashing (if not already)
         if status is PAUSED_STATUS and not self.flash:
@@ -112,8 +128,10 @@ class BlinkstickPlugin():
             GLib.source_remove(self.flash)
         self.flash = None
 
-        if status in [PREVIEW_STATUS, INIT_STATUS, ERROR_STATUS]:
-            self.set_color(self.off_color)
+        if status in [PREVIEW_STATUS, INIT_STATUS]:
+            self.set_color(self.preview_color)
+        elif status == ERROR_STATUS:
+            self.set_color(self.error_color)
         elif status == RECORDING_STATUS:
             self.set_color(self.rec_color)
         elif status == UPCOMING_STATUS:
@@ -129,7 +147,7 @@ class BlinkstickPlugin():
 
         # toggle color if flashing
         if self.flash and self.led == hex:
-            hex = self.off_color
+            hex = self.preview_color
 
         # blinkstick square has multiple LEDs
         for i in range(LED_COUNT):
