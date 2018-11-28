@@ -22,6 +22,7 @@ DEFAULT_PAUSE_COLOR = '#ff0000'
 DEFAULT_PAUSE_DELAY = 1000
 DEFAULT_UPCOMING_COLOR = '#ffff00'
 DEFAULT_ERROR_COLOR = '#ffbf00'
+OFF_COLOR = '#000000'
 
 LED_COUNT = 8
 
@@ -51,12 +52,13 @@ def init():
                      pause_delay=pause_delay,
                      upcoming_color=upcoming_color,
                      upcoming_time=TIME_UPCOMING,
-                     error_color=error_color)
+                     error_color=error_color,
+                     off_color=OFF_COLOR)
 
 
 class BlinkstickPlugin():
     def __init__(self, preview_color, rec_color, pause_color, pause_delay,
-                 upcoming_color, upcoming_time, error_color):
+                 upcoming_color, upcoming_time, error_color, off_color):
         self.preview_color = preview_color
         self.rec_color = rec_color
         self.pause_color = pause_color
@@ -64,6 +66,7 @@ class BlinkstickPlugin():
         self.upcoming_color = upcoming_color
         self.upcoming_time = upcoming_time
         self.error_color = error_color
+        self.off_color = off_color
 
         self.bs = None
         self.error = False
@@ -79,6 +82,7 @@ class BlinkstickPlugin():
         dispatcher.connect('timer-short', self._handle_timer)
         dispatcher.connect('recorder-status', self._handle_status_change)
         dispatcher.connect('recorder-upcoming-event', self._handle_upcoming)
+        dispatcher.connect('quit', self._handle_quit)
 
         # make sure led is off when plugin starts
         self._handle_timer(self)
@@ -108,6 +112,9 @@ class BlinkstickPlugin():
                 status = UPCOMING_STATUS
         if not self.flash:
             self.set_status(status)
+
+    def _handle_quit(self, sender):
+        self.set_color(self.off_color)
 
     def set_status(self, status):
         # start flashing (if not already)
