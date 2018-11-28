@@ -54,7 +54,7 @@ Settings
 +----------------+---------+----------------------------------------------------+--------------------+
 | Setting        | Type    | Description                                        | Default            |
 +================+=========+====================================================+====================+
-| preview_color  | string  | Hex string representing preview color              | '#000000' (White)  |
+| preview_color  | string  | Hex string representing preview color              | '#000000' (Off)  |
 +----------------+---------+----------------------------------------------------+--------------------+
 | rec_color      | string  | Hex string representing record color               | '#ff0000' (Red)    |
 +----------------+---------+----------------------------------------------------+--------------------+
@@ -65,7 +65,7 @@ Settings
 | upcoming_color | string  | Hex string representing upcoming color. This       | '#ffff00' (Yellow) |
 |                |         | color is used when a recording is about to start   |                    |
 +----------------+---------+----------------------------------------------------+--------------------+
-| error_color    | string  | Hex string representing error color                | '#ffbf00' (Orange) |
+| error_color    | string  | Hex string representing error color                | '#aa00aa' (Purple) |
 +----------------+---------+----------------------------------------------------+--------------------+
 
 Source
